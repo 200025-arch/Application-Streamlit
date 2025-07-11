@@ -228,3 +228,89 @@ else:
     st.title(" ")
     st.error(" Aucune connexion détectée.\n\nVeuillez recharger le fichier pour initialiser correctement les données.")
     st.info("Redirection vers la page d’accueil...")
+
+
+
+
+# --- CSS PERSONNALISÉ ---
+st.markdown("""
+<style>
+/* Supprimer le menu et le footer Streamlit */
+#MainMenu, footer {visibility: hidden;}
+html, body, .main, .block-container {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Topbar*/
+.topbar {
+    width: 100%;
+    background-color: #2B2E42;
+    padding: 0.25rem 1rem;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+}
+.topbar h1 {
+    font-size: 20px;
+    color: #8D9AAE;
+    margin: 0;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #8D9AAE;
+    color: white;
+    padding-top: 20px;
+}
+
+</style>
+""", unsafe_allow_html=True)
+# CSS pour  KPI
+st.markdown("""
+    <style>
+    .kpi-row {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        overflow-x: auto;
+    }
+    .kpi-card {
+        background-color: white;
+        padding: 1.5rem 1.5rem 1.2rem 1rem;
+        border-radius: 12px;
+        border-left: 5px solid #EE2449;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        transition: 0.2s ease-in-out;
+        min-width: 200px;
+        flex: 1;
+    }
+    .kpi-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+    .kpi-title {
+        font-size: 15px;
+        color: #7f8c8d;
+        margin-bottom: 0.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+    .kpi-value {
+        font-size: 30px;
+        font-weight: 600;
+        color: #111827;
+    }
+    .kpi-icon {
+        font-size: 32px;
+        color: #EE2449;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+    </style>
+    """, unsafe_allow_html=True)
