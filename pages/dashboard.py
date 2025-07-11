@@ -181,3 +181,50 @@ if con is not None:
                 title="Répartition par type de carrosserie")
     fig2.update_traces(textinfo='percent+label')
     fig2.update_layout(paper_bgcolor="#EDF2F4", font_color="#2B2E42")
+
+    #Graphe 4
+    dfV4 = con.execute(f"""
+        SELECT segment, CAST(range_km AS DOUBLE) AS range_km
+        FROM VES WHERE {where_sql}
+    """).df()
+    fig3 = px.box(dfV4, x="segment", y="range_km", color_discrete_sequence=["#EE2449"],
+                title="Autonomie par segment")
+    fig3.update_layout(paper_bgcolor="#EDF2F4", plot_bgcolor="#FFFFFF", font_color="#2B2E42")
+
+    #Graphe5
+    dfV5 = con.execute(f"""
+        SELECT brand, CAST(efficiency_wh_per_km AS DOUBLE) AS efficiency
+        FROM VES WHERE {where_sql}
+        AND brand IN ('Tesla', 'BMW') AND efficiency_wh_per_km IS NOT NULL
+    """).df()
+    fig4 = px.histogram(dfV5, x="efficiency", color="brand", barmode="overlay",
+                            color_discrete_map={"Tesla": "#EE2449", "BMW": "#8D9AAE"},
+                            title="Histogramme superposé : efficacité Tesla vs BMW")
+    fig4.update_layout(paper_bgcolor="#EDF2F4", font_color="#2B2E42", height=300)
+
+    fig.update_layout(height=350)
+    fig1.update_layout(height=350)
+    fig2.update_layout(height=350)
+    fig3.update_layout(height=350)
+    fig4.update_layout(height=350)
+
+    #Affichage des Visuels
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.plotly_chart(fig, use_container_width=True)
+    with col2:
+        st.plotly_chart(fig1, use_container_width=True)
+    with col3:
+        st.plotly_chart(fig2, use_container_width=True)
+
+    col4, col5 = st.columns(2)
+    with col4:
+        st.plotly_chart(fig3, use_container_width=True)
+    with col5:
+        st.plotly_chart(fig4, use_container_width=True)
+
+else:
+    st.title(" ")
+    st.error(" Aucune connexion détectée.\n\nVeuillez recharger le fichier pour initialiser correctement les données.")
+    st.info("Redirection vers la page d’accueil...")
