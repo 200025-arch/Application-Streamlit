@@ -86,3 +86,62 @@ if con is not None:
             LIMIT 1;
         """
  
+    #Visualisation
+    #graphe 1
+    dfV1 = f"""
+    SELECT brand, AVG(CAST(range_km AS DOUBLE)) AS autonomie_moy
+    FROM VES
+    WHERE {where_sql}
+    GROUP BY brand
+    ORDER BY autonomie_moy DESC
+    LIMIT 10
+    """
+    dfviz = con.execute(dfV1).df()
+    fig = px.bar(
+        dfviz,
+        x="autonomie_moy",
+        y="brand",
+        orientation='h',
+        color_discrete_sequence=["#EE2449"],
+        title="Autonomie moyenne par marque (Top 10)"
+    )
+    fig.update_layout(
+        plot_bgcolor="#FFFFFF",
+        paper_bgcolor="#EDF2F4",
+        font=dict(color="#2B2E42"),
+        title_font_size=20,
+        xaxis_title="Autonomie (km)",
+        yaxis_title="Marque",
+        yaxis=dict(categoryorder='total ascending')
+    )
+
+    #graphe2
+    dfV2 = con.execute(f"""
+        SELECT AVG(CAST(efficiency_wh_per_km AS DOUBLE)) AS val
+        FROM VES WHERE {where_sql}
+    """).fetchone()[0]
+    fig1= go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=dfV2,
+        title={'text': "Efficacité moyenne (Wh/km)"},
+        gauge={
+            'axis': {'range': [100, 200]},
+            'bar': {'color': "#EE2449"},
+            'steps': [{'range': [100, 140], 'color': "#FDEDEC"},
+                    {'range': [140, 200], 'color': "#FADBD8"}]
+        }
+    ))
+    fig1.update_layout(height=300, paper_bgcolor="#EDF2F4", font_color="#2B2E42")
+
+
+    # graphe 3
+    dfV3 = con.execute(f"""
+        SELECT car_body_type, COUNT(*) AS count
+        FROM VES WHERE {where_sql}
+        GROUP BY car_body_type
+    """).df()
+    fig2 = px.pie(dfV3, names="car_body_type", values="count",
+                color_discrete_sequence=["#EE2449", "#D80536", "#8D9AAE", "#2B2E42", "#EDF2F4"],
+                title="Répartition par type de carrosserie")
+    fig2.update_traces(textinfo='percent+label')
+    fig2.update_layout(paper_bgcolor="#EDF2F4", font_color="#2B2E42")
