@@ -72,6 +72,6 @@ Elle permet de téléverser un fichier CSV, de le charger dans une base DuckDB, 
  | Membre de l'équipe     | Rôle / Contribution principale                                  |
 | ------------------------| --------------------------------------------------------------- |
 | **Eva ASSY**            |   creation des KPI Et Des Visualisation                         |
-| **Tonny MVOUMBI**       |   Creation et gestion de la page Home                           |
-| **Ange Muriel**         |   creation des KPI Et Des Visualisation                         |
+| **Tonny MVOUMBI**       |   Creation et gestion de la page Home, README.                  |
+| **Ange Muriel**         |   creation des KPI, requpête sql pour les KPI Et Des Visualisation|
 ````
