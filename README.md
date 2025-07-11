@@ -25,7 +25,6 @@ Projet de Groupe : Créez une Application Web Interactive avec Git, Streamlit et
 
         .Anticiper la dégradation des batteries.
 
-
 ## Installation
 
 ### 1. Cloner le projet
