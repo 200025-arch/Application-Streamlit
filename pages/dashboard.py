@@ -39,4 +39,50 @@ if con is not None:
        where_clauses.append(f"car_body_type IN {format_sql_list(body_type)}")
        where_clauses.append(f"CAST(range_km AS DOUBLE) >= {min_range}")
        where_clauses.append(f"CAST(battery_capacity_kWh AS DOUBLE) >= {min_battery}")
-       where_sql = " AND ".join(where_clauses)   
+       where_sql = " AND ".join(where_clauses)  
+
+    #Gestion des KPI
+    query = f"""
+        SELECT 
+            AVG(CAST(range_km AS DOUBLE)) AS avg_range,
+            FROM VES
+            WHERE {where_sql}
+        """
+    query2 = f"""
+        SELECT model, brand, MAX(CAST(range_km AS DOUBLE)) AS autonomie_max
+            FROM VES
+            WHERE {where_sql}
+            AND  range_km IS NOT NULL
+            GROUP BY model, brand
+            ORDER BY autonomie_max DESC
+            LIMIT 1
+        """
+    query3 = f"""
+        SELECT car_body_type, COUNT(*) AS total
+            FROM VES
+            WHERE {where_sql} 
+            AND car_body_type IS NOT NULL
+            GROUP BY car_body_type
+            ORDER BY total DESC
+            LIMIT 1;
+        """
+
+    query4 = f"""
+        SELECT brand, MAX(CAST(fast_charging_power_kw_dc AS DOUBLE)) AS max_charge
+            FROM VES
+            WHERE {where_sql} 
+            AND fast_charging_power_kw_dc IS NOT NULL
+            GROUP BY brand
+            ORDER BY max_charge DESC
+            LIMIT 1;
+        """
+    query5 = f"""
+        SELECT brand, COUNT(*) AS total_vehicules
+            FROM VES
+            WHERE {where_sql} 
+            AND brand IS NOT NULL
+            GROUP BY brand
+            ORDER BY total_vehicules DESC
+            LIMIT 1;
+        """
+ 
