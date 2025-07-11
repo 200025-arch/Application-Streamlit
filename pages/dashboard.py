@@ -93,3 +93,28 @@ if con is not None:
     dfkpi4 = con.execute(query4).df().iloc[0]
     dfkpi5 = con.execute(query5).df().iloc[0]
 
+#Affichage KPI
+    st.title(" ")
+    col1, col2, col3, col4, col5 = st.columns(5)
+
+    def kpi_card(title, value, suffix=""):
+        st.markdown(f""" <div class="kpi-card"> <div class="kpi-title">{title}</div><div class="kpi-value">{value} {suffix}</div></div>""", unsafe_allow_html=True)
+
+    def kpi_cards(title, nom,valeur, suffix=""):
+        st.markdown(f"""<div class='kpi-card' ><div class="kpi-title">{title}</div><div class="kpi-value">{nom}<span style='color:#2e8b57; font-size:20px;'> |{valeur} {suffix}</span></div></div>""", unsafe_allow_html=True)
+    def kpi_cardSs(title, nom,valeur, suffix=""):
+        st.markdown(f"""<div class='kpi-card' ><div class="kpi-title">{title}</div><div class="kpi-value">{nom}<span style='color:#D80536; font-size:20px;'> |{valeur} {suffix}</span></div></div>""", unsafe_allow_html=True)
+
+
+    with col1:
+        kpi_card("Autonomie moyenne", round(dfkpi["avg_range"], 0), "km")
+    with col2:
+        kpi_cards("Model Econome", dfkpi2["model"], dfkpi2["autonomie_max"],"Wh/km")            
+    with col3:
+        kpi_cards("Vehicule dominant", dfkpi3["car_body_type"],dfkpi3["total"],"Ves")
+
+    with col4:
+        kpi_cards("Marque/PC rapide", dfkpi4["brand"],dfkpi4["max_charge"],"Puiss.")
+
+    with col5:
+        kpi_cardSs("Marque La Moins utilsé", dfkpi5["brand"],dfkpi5["total_vehicules"],"Ves")
