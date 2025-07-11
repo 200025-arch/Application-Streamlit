@@ -86,3 +86,10 @@ if con is not None:
             LIMIT 1;
         """
  
+
+    dfkpi = con.execute(query).df().iloc[0]
+    dfkpi2 = con.execute(query2).df().iloc[0]
+    dfkpi3 = con.execute(query3).df().iloc[0]
+    dfkpi4 = con.execute(query4).df().iloc[0]
+    dfkpi5 = con.execute(query5).df().iloc[0]
+
