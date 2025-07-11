@@ -101,9 +101,9 @@ if con is not None:
         st.markdown(f""" <div class="kpi-card"> <div class="kpi-title">{title}</div><div class="kpi-value">{value} {suffix}</div></div>""", unsafe_allow_html=True)
 
     def kpi_cards(title, nom,valeur, suffix=""):
-        st.markdown(f"""<div class='kpi-card' ><div class="kpi-title">{title}</div><div class="kpi-value">{nom}<span style='color:#2e8b57; font-size:20px;'> |{valeur} {suffix}</span></div></div>""", unsafe_allow_html=True)
+        st.markdown(f"""<div class='kpi-card' ><div class="kpi-title">{title}</div><div class="kpi-value">{nom}<span style='color:#2e8b57; font-size:15px;'> |{valeur} {suffix}</span></div></div>""", unsafe_allow_html=True)
     def kpi_cardSs(title, nom,valeur, suffix=""):
-        st.markdown(f"""<div class='kpi-card' ><div class="kpi-title">{title}</div><div class="kpi-value">{nom}<span style='color:#D80536; font-size:20px;'> |{valeur} {suffix}</span></div></div>""", unsafe_allow_html=True)
+        st.markdown(f"""<div class='kpi-card' ><div class="kpi-title">{title}</div><div class="kpi-value">{nom}<span style='color:#D80536; font-size:15px;'> |{valeur} {suffix}</span></div></div>""", unsafe_allow_html=True)
 
 
     with col1:
